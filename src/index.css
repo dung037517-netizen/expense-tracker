@@ -31,3 +31,7 @@ input,
 select {
   font: inherit;
 }
+
+.app-shell.dark {
+  background: #020617;
+}

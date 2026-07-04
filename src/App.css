@@ -3,10 +3,22 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.app-shell.dark {
+  color: #e2e8f0;
 }
 
 .header {
-  text-align: center;
+  text-align: left;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .eyebrow {
@@ -20,23 +32,90 @@
 
 .subtitle {
   max-width: 620px;
-  margin: 10px auto 0;
+  margin: 10px 0 0;
   color: #64748b;
 }
 
-.summary-grid {
+.app-shell.dark .subtitle,
+.app-shell.dark .card-label,
+.app-shell.dark .panel-header span,
+.app-shell.dark .transaction-meta,
+.app-shell.dark .budget-caption {
+  color: #94a3b8;
+}
+
+.toggle-button,
+.secondary-button,
+.danger-button,
+.transaction-actions button,
+.action-buttons button,
+.import-label,
+.transaction-form button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.toggle-button:hover,
+.secondary-button:hover,
+.danger-button:hover,
+.transaction-actions button:hover,
+.action-buttons button:hover,
+.import-label:hover,
+.transaction-form button:hover {
+  transform: translateY(-1px);
+}
+
+.toggle-button {
+  background: #1e293b;
+  color: white;
+}
+
+.summary-grid,
+.insight-grid,
+.content-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
-.card {
-  padding: 20px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+.summary-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.card h2 {
+.insight-grid {
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+.content-grid {
+  grid-template-columns: 1.1fr 0.9fr;
+}
+
+.card,
+.panel {
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+.card {
+  background: white;
+}
+
+.panel {
+  background: white;
+}
+
+.app-shell.dark .card,
+.app-shell.dark .panel {
+  background: #111827;
+  box-shadow: 0 12px 35px rgba(2, 6, 23, 0.35);
+}
+
+.card h2,
+.panel h2 {
   margin: 6px 0 0;
   font-size: 1.8rem;
 }
@@ -60,21 +139,98 @@
   background: linear-gradient(135deg, #dbeafe, #eff6ff);
 }
 
-.content-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 20px;
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
 }
 
-.panel {
+.panel-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.secondary-button {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.danger-button {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.import-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.import-label input {
+  display: none;
+}
+
+.budget-card .budget-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.budget-card input,
+.transaction-form input,
+.transaction-form select,
+.filters-grid input,
+.filters-grid select {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
   background: white;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
 }
 
-.panel h2 {
-  margin-top: 0;
+.app-shell.dark .budget-card input,
+.app-shell.dark .transaction-form input,
+.app-shell.dark .transaction-form select,
+.app-shell.dark .filters-grid input,
+.app-shell.dark .filters-grid select {
+  background: #0f172a;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.progress-bar > div {
+  height: 100%;
+  background: linear-gradient(90deg, #4f46e5, #22c55e);
+  border-radius: inherit;
+}
+
+.budget-caption {
+  margin: 8px 0 0;
+  color: #475569;
+  font-weight: 600;
+}
+
+.insight-list {
+  padding-left: 18px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .transaction-form {
@@ -91,21 +247,25 @@
   color: #334155;
 }
 
-.transaction-form input,
-.transaction-form select {
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  padding: 10px 12px;
-  font: inherit;
+.app-shell.dark .transaction-form label {
+  color: #cbd5e1;
 }
 
-.transaction-form button,
-.transaction-actions button {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-weight: 700;
-  cursor: pointer;
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.transaction-form button {
+  background: #4f46e5;
+  color: white;
 }
 
 .form-error {
@@ -114,22 +274,17 @@
   font-size: 0.95rem;
 }
 
-.transaction-form button {
-  margin-top: 4px;
-  background: #4f46e5;
-  color: white;
-}
-
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.panel-header span {
-  color: #64748b;
+.form-message {
+  margin: 0;
+  color: #16a34a;
   font-size: 0.95rem;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr 0.9fr;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .transaction-list {
@@ -148,6 +303,11 @@
   padding: 12px 14px;
   border-radius: 12px;
   background: #f8fafc;
+  gap: 12px;
+}
+
+.app-shell.dark .transaction-item {
+  background: #0f172a;
 }
 
 .transaction-item.income {
@@ -164,6 +324,10 @@
   color: #0f172a;
 }
 
+.app-shell.dark .transaction-description {
+  color: #f8fafc;
+}
+
 .transaction-meta {
   margin: 3px 0 0;
   font-size: 0.9rem;
@@ -174,6 +338,13 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
 }
 
 .amount {
@@ -188,14 +359,26 @@
   color: #ef4444;
 }
 
-.transaction-actions button {
-  background: #e2e8f0;
-  color: #334155;
-}
-
 @media (max-width: 900px) {
   .summary-grid,
-  .content-grid {
+  .insight-grid,
+  .content-grid,
+  .filters-grid,
+  .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .transaction-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .transaction-actions {
+    justify-content: flex-start;
   }
 }
