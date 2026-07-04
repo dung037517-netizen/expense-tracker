@@ -1,4 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import "./App.css";
 
 const STORAGE_KEY = "expense-tracker-transactions";
@@ -117,14 +132,33 @@ function App() {
       (transaction) => transaction.type === "expense" && transaction.date.startsWith(currentMonthKey),
     );
 
-    return currentMonthExpenses.reduce((accumulator, transaction) => {
-      const current = accumulator[transaction.category] ?? 0;
-      accumulator[transaction.category] = current + transaction.amount;
-      return accumulator;
-    }, {});
+    return Object.entries(
+      currentMonthExpenses.reduce((accumulator, transaction) => {
+        const current = accumulator[transaction.category] ?? 0;
+        accumulator[transaction.category] = current + transaction.amount;
+        return accumulator;
+      }, {}),
+    ).map(([name, value]) => ({ name, value }));
   }, [transactions, currentMonthKey]);
 
-  const topCategory = Object.entries(spendingByCategory).sort((a, b) => b[1] - a[1])[0];
+  const topCategory = spendingByCategory.sort((a, b) => b.value - a.value)[0];
+
+  const monthlyTrend = useMemo(() => {
+    const monthlyMap = new Map();
+
+    transactions.forEach((transaction) => {
+      const monthKey = transaction.date.slice(0, 7);
+      const current = monthlyMap.get(monthKey) ?? { month: monthKey, income: 0, expense: 0 };
+      if (transaction.type === "income") {
+        current.income += transaction.amount;
+      } else {
+        current.expense += transaction.amount;
+      }
+      monthlyMap.set(monthKey, current);
+    });
+
+    return Array.from(monthlyMap.values()).sort((a, b) => a.month.localeCompare(b.month));
+  }, [transactions]);
 
   const filteredTransactions = useMemo(() => {
     return [...transactions]
@@ -318,12 +352,48 @@ function App() {
               <strong>Savings rate:</strong> {savingsRate}%
             </li>
             <li>
-              <strong>Top spending category:</strong> {topCategory ? `${topCategory[0]} (${formatCurrency(topCategory[1])})` : "No data yet"}
+              <strong>Top spending category:</strong> {topCategory ? `${topCategory.name} (${formatCurrency(topCategory.value)})` : "No data yet"}
             </li>
             <li>
               <strong>Transactions tracked:</strong> {transactions.length}
             </li>
           </ul>
+        </article>
+      </section>
+
+      <section className="chart-grid">
+        <article className="panel">
+          <h2>Expense breakdown</h2>
+          <div className="chart-card">
+            <ResponsiveContainer width="100%" height={280}>
+              <PieChart>
+                <Pie data={spendingByCategory} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90}>
+                  {spendingByCategory.map((entry, index) => (
+                    <Cell key={`${entry.name}-${index}`} fill={["#4f46e5", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#14b8a6"][index % 6]} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value) => formatCurrency(value)} />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </article>
+
+        <article className="panel">
+          <h2>Monthly trends</h2>
+          <div className="chart-card">
+            <ResponsiveContainer width="100%" height={280}>
+              <LineChart data={monthlyTrend}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip formatter={(value) => formatCurrency(value)} />
+                <Legend />
+                <Line type="monotone" dataKey="income" stroke="#10b981" strokeWidth={2} />
+                <Line type="monotone" dataKey="expense" stroke="#ef4444" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </article>
       </section>
 
