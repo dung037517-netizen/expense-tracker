@@ -416,6 +416,22 @@
   border-left: 4px solid #ef4444;
 }
 
+.footer-card {
+  text-align: center;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.8);
+  color: #475569;
+  font-size: 0.95rem;
+  border: 1px solid #e2e8f0;
+}
+
+.app-shell.dark .footer-card {
+  background: #111827;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
 .transaction-description {
   margin: 0;
   font-weight: 700;

@@ -1,31 +1,58 @@
-# Expense Tracker
+# FinanceFlow - Personal Finance Dashboard
 
-A simple personal finance app built with React and Vite. It lets users add income and expense transactions, view totals, and keep data in the browser with localStorage.
+FinanceFlow is a polished personal finance tracker built with React and Vite. It is designed to look modern, professional, and portfolio-ready for students applying to universities or internships abroad.
 
-## Features
-- Add income and expense transactions
-- View total income, total expense, and balance
-- Delete transactions from the list
-- Persist data with localStorage
-- Responsive, simple UI
+## ✨ Highlights
+- Elegant hero section with strong branding
+- Add, edit, and delete transactions
+- Monthly filtering by date
+- Real-time income, expense, balance, and savings calculations
+- Budget health tracking with progress bar
+- Savings goal progress card
+- Expense breakdown chart with Recharts
+- Monthly income/expense trend chart
+- CSV and JSON export/import
+- Dark/light theme toggle
+- Responsive layout for mobile and desktop
 
-## Run locally
+## 🛠 Tech Stack
+- React 19
+- Vite
+- Tailwind CSS
+- Recharts
+- date-fns
+- lucide-react
+- LocalStorage for persistence
+
+## 🚀 Live Demo
+- Vercel: https://financeflow-maudung.vercel.app/
+
+## ▶️ Run Locally
 ```bash
-git clone https://github.com/dung037517-netizen/expense-tracker.git
-cd expense-tracker
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173 to view the app.
-
-## Build for production
+## 📦 Build
 ```bash
 npm run build
 ```
 
-## Live demo
-- Vercel: https://expense-tracker-dung.vercel.app/
+## 📸 Project Goals
+This project was created to showcase:
+- UI/UX design skills
+- Frontend development with React
+- Data visualization and dashboard logic
+- Personal project quality suitable for CV and college applications
 
-## CV description
-Expense Tracker is a React + Vite web app for managing personal finances. Users can add income or expense transactions, see instant totals, and keep data saved in the browser using localStorage.
+## 🧠 Lessons Learned
+- Building a clean finance dashboard with meaningful metrics
+- Improving UX for data-heavy interfaces
+- Making a project feel polished and portfolio-ready
+- Maintaining a stable experience across desktop and mobile
+
+## 🔮 Future Improvements
+- Add authentication
+- Connect to a backend/database
+- Add recurring transactions and goals
+- Support multi-currency
